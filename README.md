@@ -1,2 +1,2 @@
 # bootstrap-jenkins
-This Docker image will install Jenkins on Alpine and setup a Seed Job to bootstrap Jenkins, installs recommended Plugins and skip login wizard.
+This Docker image will install Jenkins on Alpine and setup a Seed Job to bootstrap Jenkins, install recommended Plugins and skips login wizard.
