@@ -1,12 +1,14 @@
 # bootstrap-jenkins
 
-This project goal is to create Jenkins docker image, install recommended plugins, skips setup wizard.
+This project goal is to create Jenkins docker image, install recommended plugins, skips setup wizard, setup a .
 
-This Gradle project does the following:
+This Gradle project goal is to:
 
-- Creates docker image for jenkins.
-- Installs all recommended plugins.
+- Create Docker image for Jenkins.
+- Installs all recommended Jenkins plugins.
 - Disables Jenkins login.
+- Setup a seed Job in Jenkins.
+- Configure seed Job to create a Pipeline Job using Groovy scripts.
 
 ## Instructions
 
@@ -35,3 +37,5 @@ This Gradle project does the following:
       Note: *seed* is job name we created in Jenkins and *seedJob.xml* is the file we want to name in our local host environment.
 6. Execute `docker stop <CONTAINER ID>` to avoid port collisions.
 7. Execute `./gradlew docker dockerRun` at project home directory.
+
+After Jekins docker image restart, seed-job still exist in Jenkins which help us in avoiding manual pipeline job creation each time we restart Jenkins Docker container.
