@@ -6,10 +6,11 @@ plugins {
 }
 
 project.version = scmVersion.version
+print "project name: ${project.name}, image: ${project.name}:${project.version}"
 
 docker {
-  name "${project.name}"
-  files "plugins.txt", "SeedJob.xml"
+  name "${project.name}:${project.version}"
+  files "plugins.txt", "seedJob.xml"
 }
 
 dockerRun {
@@ -18,4 +19,7 @@ dockerRun {
   ports '8001:8080'
   clean true
   daemonize false
+  // arguments '--hostname=custom', '-P'
+  // volumes 'hostvolume': '/containervolume'
+  // env 'MYVAR1': 'MYVALUE1', 'MYVAR2': 'MYVALUE2'
 }
