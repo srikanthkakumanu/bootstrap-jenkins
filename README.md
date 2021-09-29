@@ -35,7 +35,7 @@ After Jekins docker image restart, seed-job still exist in Jenkins which help us
 
 ## Creating New Pipeline Jobs
 
-Once Bootstrap Jenkins is setup and running, then creating new pipeline jobs are easy. You just need to add new pipeline job code block in ***createJobs.groovy*** script.
+Once Bootstrap Jenkins is setup and running, then creating new pipeline jobs are easy. You just need to add new pipeline job code block in ***createJobs.groovy*** script. With this pipeline job setup, Jenkins will pickup *Jenkinsfile* from your micro-service code repo.
 
 For more details, please verify rapi-job branch in this Git repo.
 
