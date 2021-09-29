@@ -32,3 +32,36 @@ This Gradle project goal is to:
 7. Execute `./gradlew docker dockerRun` at project home directory.
 
 After Jekins docker image restart, seed-job still exist in Jenkins which help us in avoiding manual pipeline job creation each time we restart Jenkins Docker container.
+
+## Creating New Pipeline Jobs
+
+Once Bootstrap Jenkins is setup and running, then creating new pipeline jobs are easy. You just need to add new pipeline job code block in ***createJobs.groovy*** script.
+
+For more details, please verify rapi-job branch in this Git repo.
+
+e.g.
+
+```Groovy
+pipelineJob('pipelineJob') {
+    definition {
+        cps {
+            script(readFileFromWorkspace('pipelineJob.groovy'))
+            sandbox()
+        }
+    }
+}
+pipelineJob('rapi-job') {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url 'https://github.com/srikanthkakumanu/RAPI.git'
+                    }
+                    branch 'main'
+                }
+            }
+        }
+    }
+}
+```

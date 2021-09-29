@@ -6,3 +6,17 @@ pipelineJob('pipelineJob') {
         }
     }
 }
+pipelineJob('rapi-job') {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url 'https://github.com/srikanthkakumanu/RAPI.git'
+                    }
+                    branch 'main'
+                }
+            }
+        }
+    }
+}
