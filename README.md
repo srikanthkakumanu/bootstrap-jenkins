@@ -65,3 +65,11 @@ pipelineJob('rapi-job') {
     }
 }
 ```
+
+Note:
+
+In order to make Jenkins to build micro-service docker image and push to DockerHub.
+
+1. Create credentials in Jenkins:
+  1.1 Go to Manage Credentials section in Jenkins
+  1.2 Create a Credential with DockerHub username and password and with ID as **'docker-hub'**.
