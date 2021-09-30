@@ -31,6 +31,8 @@ pipelineJob('rapi-job-docker') {
                     }
                     branch 'main'
                     // to custom Jenkinsfile i.e. Jenkinsfile-Docker
+                    // It builds micro-service docker image and push
+                    // to DockerHub
                     scriptPath 'Jenkinsfile-Docker'
                 }
             }

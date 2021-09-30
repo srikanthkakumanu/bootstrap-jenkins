@@ -1,3 +1,6 @@
+// To Run Docker inside Jenkins (To Run Docker inside Jenkins Docker container)
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
 plugins {
   id 'base'
   id 'com.palantir.docker' version '0.29.0'
@@ -6,7 +9,24 @@ plugins {
 }
 
 project.version = scmVersion.version
-print "project name: ${project.name}, image: ${project.name}:${project.version}"
+
+// To Run Docker inside Jenkins (To Run Docker inside Jenkins Docker container)
+// Jenkins builds micro-service docker image push to DockerHub
+Process process
+if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows()) {
+    process = "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock alpine stat -c %g /var/run/docker.sock".execute()
+} else if (DefaultNativePlatform.getCurrentOperatingSystem().isLinux()) {
+    process = "stat -c %g /var/run/docker.sock".execute()
+} else {
+    throw new GradleException("Unsupported operating system. No way to find group of /var/run/docker.sock.")
+}
+
+def out = new ByteArrayOutputStream()
+process.waitForProcessOutput(out, System.err)
+String dockerSockGroupId = out.toString().trim()
+String extraPrefix = DefaultNativePlatform.getCurrentOperatingSystem().isWindows() ? '/' : ''
+// end
+
 
 docker {
   name "${project.name}:${project.version}"
@@ -22,4 +42,7 @@ dockerRun {
   // arguments '--hostname=custom', '-P'
   // volumes 'hostvolume': '/containervolume'
   // env 'MYVAR1': 'MYVALUE1', 'MYVAR2': 'MYVALUE2'
+
+  // To Run Docker inside Jenkins (To Run Docker inside Jenkins Docker container)
+  arguments '-v', "$extraPrefix/var/run/docker.sock:/var/run/docker.sock", '--group-add', dockerSockGroupId
 }

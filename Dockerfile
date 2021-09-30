@@ -1,9 +1,13 @@
-FROM jenkins/jenkins:alpine
+#FROM jenkins/jenkins:alpine
+FROM jenkins/jenkins:2.289.1-jdk11
 
+# To Run Docker inside Jenkins (To Run Docker inside Jenkins Docker container)
 USER root
 RUN curl -sSL https://get.docker.com/ | sh
 RUN usermod -a -G docker jenkins
+RUN service docker start
 USER jenkins
+# end
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
