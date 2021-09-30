@@ -20,3 +20,20 @@ pipelineJob('rapi-job') {
         }
     }
 }
+// Jenkins run this job as docker container i.e. Building micro-service in Jenkins itself
+pipelineJob('rapi-job-docker') {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url 'https://github.com/srikanthkakumanu/RAPI.git'
+                    }
+                    branch 'main'
+                    // to custom Jenkinsfile i.e. Jenkinsfile-Docker
+                    scriptPath 'Jenkinsfile-Docker'
+                }
+            }
+        }
+    }
+}
